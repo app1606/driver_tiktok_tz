@@ -1,14 +1,15 @@
 import sqlite3
-from fastapi import FastAPI
+from fastapi import FastAPI, Response
 from datetime import datetime
 import random
+import requests
 
 app = FastAPI(title="Landmark Operations")
 DB_NAME = 'marks.db'
 
 @app.get("/get"
         )
-def get_all_landmarks():
+def get_all_landmarks(response:Response ):
         conn = sqlite3.connect(DB_NAME)
         cursor = conn.cursor()
         cursor.execute("""
@@ -21,6 +22,7 @@ def get_all_landmarks():
         landmarks_dict = {i: {'longitude': rec[2], 'latitude': rec[1]} for i, rec in enumerate(cursor)}
         conn.commit()
         conn.close()
+        response.headers["Access-Control-Allow-Origin"] = "*"
         return {'detail': landmarks_dict
                 }
 
