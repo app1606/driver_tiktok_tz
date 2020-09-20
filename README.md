@@ -8,6 +8,7 @@ $ screen -S back
 
 На нем при помощи uvicorn запустить back:
 
+$ uvicorn back:app --reload --port 4351
 
 После этого выйти из скрина при помощи Ctrl+d и запустить front:
 
