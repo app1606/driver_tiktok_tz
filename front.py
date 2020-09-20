@@ -7,4 +7,3 @@ def index():
     resp = make_response(render_template('front.html'))
     resp.headers['Access-Control-Allow-Origin'] = '*'
     return render_template('front.html')
-
