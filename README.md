@@ -13,7 +13,9 @@ $ uvicorn back:app --reload --port 4351
 После этого выйти из скрина при помощи Ctrl+d и запустить front:
 
 $ export FLASK_APP=front
+
 $ export FLASK_ENV=development
+
 $ flask run --reload
 
 Затем открыть 127.0.0.1:5000/home в браузере (поддерживаются Opera и Chrome). 
