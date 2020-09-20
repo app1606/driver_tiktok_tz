@@ -9,7 +9,7 @@ DB_NAME = 'marks.db'
 
 @app.get("/get"
         )
-def get_all_landmarks(response:Response ):
+def get_all_landmarks(response:Response ): #gets all landmarks from db and sends them
         conn = sqlite3.connect(DB_NAME)
         cursor = conn.cursor()
         cursor.execute("""
@@ -19,7 +19,7 @@ def get_all_landmarks(response:Response ):
         ;
 
         """)
-        landmarks_dict = {i: {'longitude': rec[2], 'latitude': rec[1]} for i, rec in enumerate(cursor)}
+        landmarks_dict = {i+1: {'longitude': rec[2], 'latitude': rec[1]} for i, rec in enumerate(cursor)}
         conn.commit()
         conn.close()
         response.headers["Access-Control-Allow-Origin"] = "*"
@@ -28,7 +28,7 @@ def get_all_landmarks(response:Response ):
 
 @app.get("/add"
         )
-def add_landmark(long: float, lat: float):
+def add_landmark(long: float, lat: float): #adds landmark to database with latitude and longitude given
         conn = sqlite3.connect(DB_NAME)
         cursor = conn.cursor()
         cursor.execute("""
@@ -44,7 +44,7 @@ def add_landmark(long: float, lat: float):
 
 @app.get("/delete"
         )
-def add_landmark(long: float, lat: float):
+def add_landmark(long: float, lat: float): #deletes landmark to database with latitude and longitude given
         conn = sqlite3.connect(DB_NAME)
         cursor = conn.cursor()
         cursor.execute("""
@@ -59,7 +59,7 @@ def add_landmark(long: float, lat: float):
         return         
 
 def main():
-    def db_worker():
+    def db_worker(): #creates database and puts random mark there
         conn = sqlite3.connect(DB_NAME)
         cursor = conn.cursor()
         cursor.executescript("""
